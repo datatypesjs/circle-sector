@@ -1,5 +1,5 @@
 import expect from 'unexpected'
-import CircleSector from '../source/index'
+import CircleSector from '..'
 
 const sector = new CircleSector({
 	x: 10,

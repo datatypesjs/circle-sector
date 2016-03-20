@@ -2,7 +2,7 @@
   "name": "circle-sector",
   "version": "0.2.0",
   "description": "Class for a sector of a circle",
-  "main": "index.js",
+  "main": "build/index.js",
   "directories": {
     "lib": "source",
     "test": "tests"
