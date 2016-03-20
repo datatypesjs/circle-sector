@@ -32,6 +32,7 @@
     "unexpected": "^10.10.12"
   },
   "dependencies": {
-    "coordinate-systems": "^1.1.0"
+    "coordinate-systems": "^1.1.0",
+    "deg2rad": "^1.0.0"
   }
 }

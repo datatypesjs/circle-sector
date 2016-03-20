@@ -1,4 +1,5 @@
 import coordinate from 'coordinate-systems'
+import deg2rad from 'deg2rad'
 
 function compress (strings, ...values) {
 	const toString = (combined, string, stringIndex) => combined += string +
@@ -16,15 +17,15 @@ export default class CircleSector {
 			x = 0,
 			y = 0,
 			radius = 1,
-			startAngle = 0,
-			endAngle = 90,
+			startAngleInDeg = 0,
+			endAngleInDeg = 90,
 		} = {}
 	) {
-		this._x = x
-		this._y = y
-		this._radius = radius
-		this._startAngle = startAngle
-		this._endAngle = endAngle
+		this.x = x
+		this.y = y
+		this.radius = radius
+		this.startAngleInDeg = startAngleInDeg
+		this.endAngleInDeg = endAngleInDeg
 	}
 
 	get x () { return this._x }
@@ -39,26 +40,41 @@ export default class CircleSector {
 	set radius (radius) { this._radius = radius }
 	setRadius (radius) { this.radius = radius; return this }
 
-	get startAngle () { return this._startAngle }
-	set startAngle (startAngle) { this._startAngle = startAngle }
-	setStartAngle (startAngle) { this.startAngle = startAngle; return this }
+	get startAngleInDeg () { return this._startAngleInDeg }
+	set startAngleInDeg (startAngleInDeg) {
+		this._startAngleInDeg = startAngleInDeg
+	}
+	setStartAngleInDeg (startAngleInDeg) {
+		this._startAngleInDeg = startAngleInDeg
+		return this
+	}
 
-	get endAngle () { return this._endAngle }
-	set endAngle (endAngle) { this._endAngle = endAngle }
-	setEndAngle (endAngle) { this.endAngle = endAngle; return this }
+	get endAngleInDeg () { return this._endAngleInDeg }
+	set endAngleInDeg (endAngleInDeg) {
+		this._endAngleInDeg = endAngleInDeg
+	}
+	setEndAngleInDeg (endAngleInDeg) {
+		this._endAngleInDeg = endAngleInDeg
+		return this
+	}
 
 	get svgPath () {
-		const arcStart = coordinate.polar([this.radius, this.startAngle]).cart()
-		const arcEnd = coordinate.polar([this.radius, this.endAngle]).cart()
-		const diff = (this.endAngle - this.startAngle + 360) % 360
-		const largeArc = (diff > 180) ? 1 : 0
+		const arcStart = coordinate
+			.polar([this.radius, -deg2rad(this.startAngleInDeg)])
+			.cart()
+		const arcEnd = coordinate
+			.polar([this.radius, -deg2rad(this.endAngleInDeg)])
+			.cart()
+		const angleDifference = this.endAngleInDeg - this.startAngleInDeg
+		const diffModulo = (angleDifference + 360) % 360
+		const largeArc = (diffModulo > 180) ? 1 : 0
 		return compress
 			`M${this.x},${this.y}
-			l${arcStart[0]},${arcStart[1]}
-			a${this.radius},${this.radius}
-				0 ${largeArc} 1
-				${arcEnd[0]},${arcEnd[1]}
-			z`
+			L${this.x + arcStart[0]},${this.y + arcStart[1]}
+			A${this.radius},${this.radius}
+				0 ${largeArc} 0
+				${this.x + arcEnd[0]},${this.y + arcEnd[1]}
+			Z`
 	}
 
 	get string () {
@@ -66,8 +82,8 @@ export default class CircleSector {
 			`x: ${this.x}, ` +
 			`y: ${this.y}, ` +
 			`radius: ${this.radius}, ` +
-			`startAngle: ${this.startAngle}, ` +
-			`endAngle: ${this.endAngle}` +
+			`startAngleInDeg: ${this.startAngleInDeg}, ` +
+			`endAngleInDeg: ${this.endAngleInDeg}` +
 		` })`
 	}
 	toString () { return this.string }
@@ -77,8 +93,8 @@ export default class CircleSector {
 			x: this.x,
 			y: this.y,
 			radius: this.radius,
-			startAngle: this.startAngle,
-			endAngle: this.endAngle,
+			startAngleInDeg: this.startAngleInDeg,
+			endAngleInDeg: this.endAngleInDeg,
 		}
 	}
 	toJSON () { return this.object }

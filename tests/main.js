@@ -5,8 +5,8 @@ const sector = new CircleSector({
 	x: 10,
 	y: 15,
 	radius: 5,
-	startAngle: 30,
-	endAngle: 85,
+	startAngleInDeg: 30,
+	endAngleInDeg: 85,
 })
 
 expect(
@@ -16,8 +16,8 @@ expect(
 		x: 10,
 		y: 15,
 		radius: 5,
-		startAngle: 30,
-		endAngle: 85,
+		startAngleInDeg: 30,
+		endAngleInDeg: 85,
 	}
 )
 
@@ -25,15 +25,16 @@ expect(
 	'Sector: ' + sector,
 	'to equal',
 	'Sector: new CircleSector(' +
-	'{ x: 10, y: 15, radius: 5, startAngle: 30, endAngle: 85 })'
+	'{ x: 10, y: 15, radius: 5, ' +
+	'startAngleInDeg: 30, endAngleInDeg: 85 })'
 )
 
 expect(
 	sector.svgPath,
 	'to equal',
 	'M10,15' +
-	'l0.7712572494379202,-4.940158120464309' +
-	'a5,5 0 0 1 -4.921883216970209,-0.8803780997429355z'
+	'L14.330127018922195,12.5' +
+	'A5,5 0 0 0 10.43577871373829,10.019026509541273Z'
 )
 
 console.log('All tests passed ✔︎')
