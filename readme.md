@@ -7,14 +7,14 @@ Supports export to SVG-path string.
 ## Installation
 
 ```shell
-npm install --save @datatypes/circle-sector
+npm install --save circle-sector
 ```
 
 
 ## Usage
 
 ```js
-import CircleSector from '@datatypes/circle-sector'
+import CircleSector from 'circle-sector'
 
 const sector = new CircleSector({
 	x: 10,
